@@ -1,0 +1,49 @@
+version: '3'
+services:
+
+        # Build the server from build folder
+        server:
+        
+                # Build the server with the dockerfile in the designated folder
+                build: ./server
+        
+                # Set the host port to 8080 and the container port to 8080
+                ports: 
+                        - 8080:8080
+
+
+        # Database for the project
+        mongo:
+                # Use the default mogoDB image
+                image: mongo
+
+                # Set the host port and container port established in the server exposes in the above build
+                ports:
+                        - "8080:3000"
+
+                # Set the startup root username and password
+                environment:
+                        MONGO_INITDB_ROOT_USERNAME: "root"
+                        MONGO_INITDB_ROOT_PASSWORD: "password"
+
+                # Try to restart container if it crashes or stops
+                restart: always
+                
+
+        # Primary application for project
+        mongo-express:
+                # Use the default mongo-express image for mongoDB management
+                image: mongo-express
+
+                # Use port 8080 for both host and container
+                ports:
+                        - "8081:8080"
+
+                # Set the startup root username and password
+                environment:
+                        ME_CONFIG_MONGODB_ADMINUSERNAME: "root"
+                        ME_CONFIG_MONGODB_ADMINPASSWORD: "password"
+
+                # Try to restart container if it crashes or stops
+                restart: always
+
