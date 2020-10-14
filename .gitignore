@@ -3,4 +3,4 @@
 .gradle
 *.jar
 /build
-./server/node_modules
+node_modules/
