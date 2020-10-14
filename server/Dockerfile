@@ -1,7 +1,7 @@
 #SERVER
-FROM node
-COPY . /usr/src/app
-WORKDIR /usr/src/app
+FROM node AS server
+WORKDIR /server
+COPY . /server
 RUN npm install
-EXPOSE 3000
-ENTRYPOINT [ "node", "index.js" ]    
+EXPOSE 8000
+ENTRYPOINT [ "node", "server.js" ]    

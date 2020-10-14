@@ -9,7 +9,7 @@ services:
         
                 # Set the host port to 8080 and the container port to 8080
                 ports: 
-                        - 8080:8080
+                        - 3000:3000
 
 
         # Database for the project
@@ -17,9 +17,9 @@ services:
                 # Use the default mogoDB image
                 image: mongo
 
-                # Set the host port and container port established in the server exposes in the above build
+                # Set the host port and container port to default mongodb port (27017)
                 ports:
-                        - "8080:3000"
+                        - "27017:27017"
 
                 # Set the startup root username and password
                 environment:
@@ -37,7 +37,7 @@ services:
 
                 # Use port 8080 for both host and container
                 ports:
-                        - "8081:8080"
+                        - "8081:8081"
 
                 # Set the startup root username and password
                 environment:
