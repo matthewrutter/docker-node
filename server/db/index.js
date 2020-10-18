@@ -1,23 +1,15 @@
-const MongoClient = require('mongodb').MongoClient;
-
-
 class DataAccessLayer
 {
 
-    constructor(database)
+    constructor(database, client)
     {
-
-        const URI = 'mongodb://mongo/' + database;
-
-        MongoClient.connect(URI, { useUnifiedTopology: true })
-        .then(client => {
-
-            console.log('\n\n\nConnected to ' + database + ' Database\n\n\n')
-
-        })
-        .catch(error => console.error("\n\n\n" + error + "\n\n\n"))       
-
+        console.log('\n\n\nMade it here\n\n\n');
+        // this.db = client.db(database);
+        
+        
+        // peopleCollection = db.collection('people')
     }
+
 
     // Data existence verification methods
     personExists(data)
@@ -34,10 +26,15 @@ class DataAccessLayer
 
 
     // Get person/people methods
-    getAllPeople(data)
+    getAllPeople()
     {
-
-
+        // db.collection(peopleCollection).find().toArray()
+        // .then(results => {
+        //   console.log(results)
+        // })
+        // .catch(error => console.error(error))
+        // console.log('\n\n\nMade it fresh\n\n\n');
+        // return "made it here though";
     }
 
     getAllPeople(data)
@@ -67,5 +64,6 @@ class DataAccessLayer
 
     }
 }
+
 
 module.exports = DataAccessLayer

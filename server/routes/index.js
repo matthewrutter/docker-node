@@ -9,7 +9,6 @@ class Routes
         var express = require('express');
         this.app = express();
 
-
         //  Set bodyparser functionality for express app
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({extended: false}));
@@ -27,7 +26,7 @@ class Routes
     {
         console.log('\n\n\nSet All Creation Routes\n\n\n')
 
-
+        
     }
 
 
