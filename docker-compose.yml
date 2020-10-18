@@ -1,6 +1,20 @@
 version: '3'
 services:
 
+
+        # Database for the project
+        mongo:
+                # Build the database 
+                build: ./db
+
+                # Set the host port and container port to default mongodb port (27017)
+                ports:
+                        - "27017:27017"
+
+                # Try to restart container if it crashes or stops
+                restart: always
+
+
         # Build the server from build folder
         server:
         
@@ -11,24 +25,13 @@ services:
                 ports: 
                         - 3000:3000
 
-
-        # Database for the project
-        mongo:
-                # Use the default mogoDB image
-                image: mongo
-
-                # Set the host port and container port to default mongodb port (27017)
-                ports:
-                        - "27017:27017"
-
-                # Set the startup root username and password
-                environment:
-                        MONGO_INITDB_ROOT_USERNAME: "root"
-                        MONGO_INITDB_ROOT_PASSWORD: "password"
-
+                # Wait for the database to spin up
+                depends_on:
+                        - mongo
+                        
                 # Try to restart container if it crashes or stops
-                restart: always
-                
+                restart: always                
+
 
         # Primary application for project
         mongo-express:
@@ -43,6 +46,10 @@ services:
                 environment:
                         ME_CONFIG_MONGODB_ADMINUSERNAME: "root"
                         ME_CONFIG_MONGODB_ADMINPASSWORD: "password"
+
+                # Wait for the database to spin up
+                depends_on:
+                        - mongo
 
                 # Try to restart container if it crashes or stops
                 restart: always

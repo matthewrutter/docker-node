@@ -1,7 +1,7 @@
 'use strict';
 
 const bodyParser = require('body-parser');
-const mongodb = require('mongodb');
+// const mongodb = require('mongodb');
 
 // Set up the express app to begin setting routes
 const express = require('express');
@@ -15,9 +15,8 @@ app.use(bodyParser.urlencoded({extended: false}));
 // Get 
 app.get('/', function (req,res)
 {
-    console.log("Someone made a general get request");
-
-    res.json({ response: "success"});
+    const cursor = db.collection('quotes').find()
+    console.log(cursor)
 });
 
 
