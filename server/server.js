@@ -1,21 +1,22 @@
-'use strict';
+// Set up data access layer
+var DataAccessLayer = require('./db');
+var dataAccessLayer = new DataAccessLayer("peopledb");
 
-const MongoClient = require('mongodb').MongoClient
-const uri = 'mongodb://mongo/peopledb'
 
-MongoClient.connect(uri, { useUnifiedTopology: true })
-  .then(client => {
-    console.log('\n\nConnected to People Database\n\n')
-  })
-  .catch(error => console.error("\n\n" + error + "\n\n"))
+// Set routes and pass data access layer into routes that will access data
+var Routes = require('./routes');
+var routes = new Routes(dataAccessLayer);
 
-const app = require("./routes/index.js")
 
-// var server = 
-var server = app.listen(3000, function() 
-{   
-    let host = server.address().address
-    var port = server.address().port
+// Get the app from the router object
+let app = routes.getApp(); 
 
-    console.log("Server listening at http://%s:%s", host, port)
- });
+
+// Set server listener
+let server = app.listen(8080, function()
+{
+    let host = server.address().address;
+    let port = server.address().port;
+    
+    console.log("Server listening at http://%s:%s", host, port);
+});

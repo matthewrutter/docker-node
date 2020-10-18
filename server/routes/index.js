@@ -1,51 +1,65 @@
-'use strict';
-
 const bodyParser = require('body-parser');
-// const mongodb = require('mongodb');
 
-// Set up the express app to begin setting routes
-const express = require('express');
-const app = express();
-
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
-
-
-// Get 
-app.get('/', function (req,res)
-{
-    const cursor = db.collection('quotes').find()
-    console.log(cursor)
-});
-
-
-// Get People
-app.get('/people', function (req,res)
-{
-    console.log("Someone made a get request for people");
-
-    res.json({ response: "success"});
-});
-
-
-
-// Delete Person
-app.delete('/person', function (req,res) 
+class Routes
 {
 
-    console.log("deleted a person\n");
-
-    res.json({ error: "its good"});
-});
-
-console.log(app.route);
-module.exports = app;
+    constructor(dataAccessLayer)
+    {
+        // Set up the express app to begin setting routes
+        var express = require('express');
+        this.app = express();
 
 
- //respond to GET request for abcd, abxcd, ab123cd, and so on....
-// app.get('/ab*cd', function (req,res) {
-//     console.log("Got a get request for /ab*cd");
+        //  Set bodyparser functionality for express app
+        this.app.use(bodyParser.json());
+        this.app.use(bodyParser.urlencoded({extended: false}));
 
-//     res.send("Page pattern match");
-// })
+
+        // Create CRUD routes with provided data leyer
+        this.setCreateRoutes(dataAccessLayer);
+        this.setReadRoutes(dataAccessLayer);
+        this.setUpdateRoutes(dataAccessLayer);
+        this.setDeleteRoutes(dataAccessLayer);
+    }
+
+
+    setCreateRoutes(data)
+    {
+        console.log('\n\n\nSet All Creation Routes\n\n\n')
+
+
+    }
+
+
+    setReadRoutes(data)
+    {
+        console.log('\n\n\nSet All Read Routes\n\n\n')
+
+    }
+
+
+
+    setUpdateRoutes(data)
+    {
+        console.log('\n\n\nSet All Update Routes\n\n\n')
+
+    }
+
+
+    setDeleteRoutes(data)
+    {
+        console.log('\n\n\nSet All Deletion Routes\n\n\n')
+
+    }
+
+
+    getApp() 
+    {
+        return this.app;    
+    }
+
+}
+
+
+module.exports = Routes
+
