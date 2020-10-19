@@ -26,7 +26,15 @@ class Routes
     {
         console.log('\n\n\nSet All Creation Routes\n\n\n')
 
-        
+        // this.getApp().get('/', function(req,res) 
+        // {
+        //     data.getPerson(name).then(
+        //         results => {
+        //             console.log(results)
+        //             res.json(results)})
+        //     .catch(error => res.json(error))
+        // });
+
     }
 
 

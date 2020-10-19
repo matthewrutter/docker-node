@@ -1,6 +1,6 @@
 const MongoClient = require('mongodb').MongoClient;
 const DB = "peopledb";
-const URI = 'mongodb://mongo/' + DB;
+const URI = 'mongodb://root:password@mongo/?authSource=admin';
 
 
 var DataAccessLayer = require('./db');
@@ -11,9 +11,8 @@ var Routes = require('./routes');
 MongoClient.connect(URI, { useUnifiedTopology: true })
 .then(client => {
 
+
     console.log('\n\n\nConnected to ' + DB + ' Database\n\n\n');
-    // const db = client.db(database)
-    // const peopleCollection = db.collection('people')
 
     // Set up data access layer with the name of the database and mongoclient passed in
     let dataAccessLayer = new DataAccessLayer(DB, client);
@@ -33,9 +32,6 @@ MongoClient.connect(URI, { useUnifiedTopology: true })
         console.log("Server listening at port 3000");
     });
 
-
-
-    
 
 })
 .catch(error => console.error("\n\n\n" + error + "\n\n\n"))  
