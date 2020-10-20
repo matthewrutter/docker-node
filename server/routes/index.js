@@ -78,9 +78,9 @@ class Routes
             // make sure the user put stuff into the post request
             if (req.body.name == null) return res.json( { error: 'Please enter a name.'} );
 
-            if (req.body.age == null) return res.json( { error: 'Please enter a name.'} );
+            if (req.body.age == null) return res.json( { error: 'Please enter a age.'} );
 
-            if (req.body.interest == null) return res.json( { error: 'Please enter a name.'} );
+            if (req.body.interest == null) return res.json( { error: 'Please enter a interest.'} );
 
 
             data.changePersonInfo(req.body.name, req.body.age, req.body.interest)
