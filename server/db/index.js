@@ -3,111 +3,57 @@ class DataAccessLayer
 
     constructor(database, client)
     {
+        // Get the database from the client with the passed in database string
         this.db = client.db(database);
 
-        this.peopleCollection = this.db.collection('people');
-
-     
-        // this.personExists("Ray Gaylord");
-        // this.peopleExist();
-
-        // this.getAllPeople();
+        // Set the collection for the calls to target
+        this.setPeopleCollection(this.db);
     }
 
 
-    // Data existence verification methods
-    personExists(name)
+    insertPerson(name, age, interest)
     {
-        // // Get the count of the documents based on given name
-        // this.peopleCollection.countDocuments({name: name})
-        // .then(function(results) {
-          
-        //     console.log(results);
-
-        // });
-        // // .catch(error => console.error(error))
-        
-    }
-
-
-    peopleExist()
-    {
-        // return this.peopleCollection.countDocuments()
+        return this.getPeopleCollection().insertOne( { name: name, age: age, interest: interest } );
     }
 
 
     // Get person/people methods
     getPerson(name)
     {
-        // return this.getCollection()
-        //     .find({name: name}, { projection: { _id: 0 } }).toArray()
-        //     .then(results => {
-        //         // console.log(results)
-        //     })
-        //     .catch(error => console.error(error));
+        // Get a person based on name from the database
+        return this.getPeopleCollection().find( { name: name }, { projection: { _id: 0 } } ).toArray();
     }
+
 
     // Get person/people methods
     getAllPeople()
     {
-        // return this.getCollection()
-        //     .find({}, { projection: { _id: 0 } }).toArray()
-        //     .then(results => {
-        //         // console.log(results)
-        //     })
-        //     .catch(error => console.error(error));
+        // Get all people from the database
+        return this.getPeopleCollection().find({}, { projection: { _id: 0 } } ).toArray();
     }
     
 
-    // Change person interests method
-    changePersonInterests(name, newInterests)
-    {
-        // this.getCollection()
-        //     .updateOne({ name: name }, { $set: { interests: newInterests } })
-        //     .then(
-        //         res => console.log(`Updated ${res.result.n} documents`),
-        //         err => console.error(`Something went wrong: ${err}`),
-        //     );
-    }
-
     // Change person name address method
-    changePersonName(name, newAddr)
+    changePersonInfo(name, age, interest)
     {
-        // this.getCollection()
-        //     .updateOne({ name: name }, { $set: { addr: newAddr } })
-        //     .then(
-        //         res => console.log(`Updated ${res.result.n} documents`),
-        //         err => console.error(`Something went wrong: ${err}`),
-        //     );
-    }
-
-    // Change person age method
-    changePersonAge(name, newAge)
-    {
-        // this.getCollection()
-        //     .updateOne({ name: name }, { $set: { age: newAge } })
-        //     .then(
-        //         res => console.log(`Updated ${res.result.n} documents`),
-        //         err => console.error(`Something went wrong: ${err}`),
-        //     );
+        return this.getPeopleCollection().updateOne( { name: name }, { $set: { age: age, interest: interest } } );
     }
 
 
     // Delete person/people methods
     deletePerson(name)
     {
-        // deleteOne({ name: name })
-        //     .then(result => {
-        //         if (result.deletedCount !== 1) {
-        //         throw "Could not find person!";
-        //         }
-        //     })
-        //     .then(result => console.log(`Removed ${result.quantity} documents`))
-        //     .catch(err => console.error(`Fatal error occurred: ${err}`));
+        return this.getPeopleCollection().deleteOne( { name: name } );
     }
 
 
-    getCollection()
+    setPeopleCollection(database)
+    {
+        this.peopleCollection = database.collection('people');
+    }
+
+
+    getPeopleCollection()
     {
         return this.peopleCollection;
     }

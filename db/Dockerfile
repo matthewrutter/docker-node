@@ -1,7 +1,6 @@
 #Database
-FROM mongo:4
+FROM mongo
 ENV MONGO_INITDB_ROOT_USERNAME="root"
 ENV MONGO_INITDB_ROOT_PASSWORD="password"
 COPY ./startup_scripts/*.sh /docker-entrypoint-initdb.d/
 COPY ./data /data/
-# ENTRYPOINT ["/usr/bin/mongod"]
